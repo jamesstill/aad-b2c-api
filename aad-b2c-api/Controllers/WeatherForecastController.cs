@@ -1,11 +1,13 @@
+using aad_b2c_api.Models;
+using aad_b2c_api.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Identity.Web.Resource;
+using System.Security.Claims;
 
 namespace aad_b2c_api.Controllers
 {
-    [Authorize]
     [ApiController]
     [EnableCors]
     [Route("api/v1/[controller]")]
@@ -27,6 +29,7 @@ namespace aad_b2c_api.Controllers
             _logger = logger;
         }
 
+        [Authorize(Policy = "WeatherForecast")]
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<WeatherForecast>), 200)]
         public async Task<IEnumerable<WeatherForecast>> Get()
